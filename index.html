@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 2% 5%;
+            margin: 10px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #valentineImage {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+        }
+
+        #yesButton {
+            background-color: green;
+            color: white;
+        }
+
+        #noButton {
+            background-color: red;
+            color: white;
+        }
+
+        #happyVideo {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 20px;
+        }
+
+        #sadVideo {
+            max-width: 40%;
+            height: auto;
+            display: none;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <img id="valentineImage" src="yo/pgask.gif" alt="Valentine Image">
+
+    <h1>Will you be my valentine?</h1>
+
+    <button id="yesButton" onclick="answerValentine(true)">Yes</button>
+    <button id="noButton" onclick="answerValentine(false)">No</button>
+
+    <video id="happyVideo" autoplay loop>
+      <source src="yo/catkisscello.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <video id="sadVideo" autoplay>
+      <source src="yo/sadcat.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <script>
+        
+        let currentVideo;
+        let valentineImage = document.getElementById("valentineImage")
+
+        function answerValentine(answer) {
+            const happyVideo = document.getElementById("happyVideo");
+            const sadVideo = document.getElementById("sadVideo");
+
+            // Check if the clicked button corresponds to the currently playing video
+            if (currentVideo && ((answer && currentVideo === happyVideo) || (!answer && currentVideo === sadVideo))) {
+                // If the same button is clicked, restart the video
+                currentVideo.currentTime = 0;
+            } else {
+                // If a different button is clicked, pause the currently playing video
+                if (currentVideo) {
+                    currentVideo.pause();
+                    currentVideo.currentTime = 0;
+                }
+
+                // Start the new video
+                if (answer) {
+                    happyVideo.style.display = "block";
+                    sadVideo.style.display = "none";
+                    valentineImage.style.display = "none";
+                    currentVideo = happyVideo;
+                } else {
+                    sadVideo.style.display = "block";
+                    happyVideo.style.display = "none";
+                    valentineImage.style.display = "none";
+                    currentVideo = sadVideo;
+                }
+            }
+
+            // Play the video
+            currentVideo.play();
+        }
+    </script>
+
+</body>
+</html>
